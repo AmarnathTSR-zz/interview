@@ -1,14 +1,29 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
+const passport = require("passport");
 const bodyparser = require("body-parser");
 
 const uri = require("./config/keys").mongoUri;
 
+const users = require("./routes/api/users");
+
 const app = express();
 // Include custom Router we created
 
-const users = require("./routes/api/users");
+// parse application/json
+app.use(bodyparser.json());
+
+// access control origin server
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 const port = process.env.port || 5000;
 
@@ -28,19 +43,13 @@ app.use(
   })
 );
 
-// parse application/json
-app.use(bodyparser.json());
+// passport middleware added
 
-// access control origin server
+app.use(passport.initialize());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// include passport stratagy
+
+require("./config/passport")(passport);
 
 // Use our router
 
