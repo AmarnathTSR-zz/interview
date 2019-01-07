@@ -18,5 +18,16 @@
   "bugs": {
     "url": "https://github.com/AmarnathTSR/interview/issues"
   },
-  "homepage": "https://github.com/AmarnathTSR/interview#readme"
+  "homepage": "https://github.com/AmarnathTSR/interview#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.10.0"
+  }
 }
