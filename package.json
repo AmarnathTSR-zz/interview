@@ -1,0 +1,22 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "sample application for interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmarnathTSR/interview.git"
+  },
+  "keywords": [
+    "interview"
+  ],
+  "author": "Amarnath TSR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmarnathTSR/interview/issues"
+  },
+  "homepage": "https://github.com/AmarnathTSR/interview#readme"
+}
