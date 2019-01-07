@@ -6,6 +6,9 @@ const bodyparser = require("body-parser");
 const uri = require("./config/keys").mongoUri;
 
 const app = express();
+// Include custom Router we created
+
+const users = require("./routes/api/users");
 
 const port = process.env.port || 5000;
 
@@ -38,6 +41,10 @@ app.use(function(req, res, next) {
   );
   next();
 });
+
+// Use our router
+
+app.use("/api/user", users);
 
 app.get("/", (req, res) => {
   res.status(200).send({ message: "success" });
