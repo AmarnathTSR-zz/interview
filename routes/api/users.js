@@ -11,9 +11,13 @@ const key = require("../../config/keys").secretOrKey;
 
 const userRegisterInput = require("../../validation/register");
 
+const userLoginInput = require("../../validation/login");
+
 // Import models
 
 const User = require("../../models/Users");
+
+require("../../config/passport")(passport);
 
 // @route:  /api/user/register
 // Desc:   Test users get
@@ -69,6 +73,65 @@ router.post("/register", (req, res) => {
         });
       });
     }
+  });
+});
+
+// @route:  /api/user/login
+// Desc:   login to website using email and password
+// Access: Public
+
+router.post("/login", (req, res) => {
+  const { errors, isValid } = userLoginInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  // get the input using req email, password from body
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // check wether email found or not
+  User.findOne({
+    email: email
+  }).then(user => {
+    // if user not found we need to show error code: 400 and respose send user:user not found
+    if (!user) {
+      errors.email = "User Not found";
+      return res.status(400).json(errors);
+    }
+    // if user found means we need to compare given password with database password using bcrypt compare function
+    bcrypt.compare(password, user.password).then(isMatch => {
+      // if the password is not match we need to return status code 404 not found
+      if (!isMatch) {
+        errors.password = "password is incorrect";
+        return res.status(404).json(errors);
+      } else {
+        //  if the password match we need to create jsonwebtoken
+        const payload = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          date: user.date
+        };
+        //   here we sign the jsonwebtoken using below methods
+        jwt.sign(
+          payload,
+          key,
+          {
+            expiresIn: 3600
+          },
+          (err, token) => {
+            return res
+              .json({
+                message: "success",
+                token: "Bearer " + token
+              })
+              .catch(console.log(err));
+          }
+        );
+      }
+    });
   });
 });
 
