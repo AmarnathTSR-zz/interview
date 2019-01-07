@@ -135,4 +135,22 @@ router.post("/login", (req, res) => {
   });
 });
 
+// @route:  /api/user/current
+// Desc:   get the current user login details
+// Access: Private
+
+router.get(
+  "/current",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
+  }
+);
+
 module.exports = router;
