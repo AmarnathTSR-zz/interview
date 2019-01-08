@@ -36,14 +36,14 @@ class Profiles extends Component {
                 List of Registered Users
               </h1>
               {spinners}
-              <table className="table">
-                <thead className="thead-dark">
+              <table className="striped">
+                <thead>
                   <tr>
-                    <th scope="col">S.No</th>
-                    <th scope="col">User ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Created Date</th>
+                    <th>S.No</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created Date</th>
                   </tr>
                 </thead>
                 <tbody>{profileItems}</tbody>

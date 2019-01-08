@@ -8,11 +8,11 @@ class ProfileItem extends Component {
 
     return (
       <tr>
-        <th>{serial}</th>
-        <th scope="row">{profile._id}</th>
-        <th scope="row">{profile.name}</th>
-        <th scope="row">{profile.email}</th>
-        <th scope="row">{profile.Date}</th>
+        <td>{serial}</td>
+        <td>{profile._id}</td>
+        <td>{profile.name}</td>
+        <td>{profile.email}</td>
+        <td>{profile.Date}</td>
       </tr>
     );
   }
