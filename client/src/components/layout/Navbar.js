@@ -14,12 +14,15 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated, isAdmin } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
 
     const guestLinks = (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li>
           <Link to="/contact">Contact Us</Link>
+        </li>
+        <li>
+          <Link to="/users">User List</Link>
         </li>
         <li>
           <Link to="/register">Register</Link>
@@ -33,6 +36,9 @@ class Navbar extends Component {
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li>
           <Link to="/contact">Contact Us</Link>
+        </li>
+        <li>
+          <Link to="/users">User List</Link>
         </li>
         <li>
           <Link to="/dashboard">Dashboard</Link>
