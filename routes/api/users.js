@@ -153,4 +153,27 @@ router.get(
   }
 );
 
+// @route   GET api/User/all
+// @desc    Get all Users
+// @access  Public
+router.get("/all", (req, res) => {
+  const errors = {};
+
+  User.find()
+    .select("-password")
+    .then(user => {
+      if (!user) {
+        errors.nouser = "There are no Users";
+        return res.status(404).json(errors);
+      }
+
+      res.json(user);
+    })
+    .catch(err =>
+      res.status(404).json({
+        user: "There are no Users"
+      })
+    );
+});
+
 module.exports = router;
