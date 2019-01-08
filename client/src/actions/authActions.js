@@ -73,6 +73,7 @@ export const logoutUser = () => dispatch => {
 };
 
 export const contactForm = (contactData, history) => dispatch => {
+  dispatch(setProfileLoading());
   axios
     .post("/api/email/contact", contactData)
     .then(res => history.push("/success"))
