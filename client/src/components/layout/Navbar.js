@@ -49,7 +49,7 @@ class Navbar extends Component {
       <nav>
         <div className="nav-wrapper">
           <a href="/" className="brand-logo">
-            Interview
+            Amarnath TSR
           </a>
           {isAuthenticated ? authLinks : guestLinks}
         </div>
