@@ -13,6 +13,9 @@ class Navbar extends Component {
               <a href="/contact">Contact Us</a>
             </li>
             <li>
+              <a href="/register">Register</a>
+            </li>
+            <li>
               <a href="/login">Login</a>
             </li>
           </ul>
