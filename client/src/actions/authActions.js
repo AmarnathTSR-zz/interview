@@ -1,12 +1,19 @@
 // Register User
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  GET_USERS,
+  USERS_LOADING
+} from "./types";
 import setAuthToken from "../utils/setAuthToken";
+
+//  register user
 
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:5000/api/user/register", userData)
+    .post("/api/user/register", userData)
     .then(res => history.push("/users"))
     .catch(err =>
       dispatch({
@@ -20,7 +27,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 export const loginUser = userData => dispatch => {
   axios
-    .post("http://localhost:5000/api/user/login", userData)
+    .post("/api/user/login", userData)
     .then(res => {
       //  save to local storage
       const token = res.data.token;
@@ -63,4 +70,42 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+export const contactForm = (contactData, history) => dispatch => {
+  axios
+    .post("/api/email/contact", contactData)
+    .then(res => history.push("/success"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get("/api/user/all")
+    .then(res =>
+      dispatch({
+        type: GET_USERS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err
+      })
+    );
+};
+
+// Profile loading
+export const setProfileLoading = () => {
+  return {
+    type: USERS_LOADING
+  };
 };
