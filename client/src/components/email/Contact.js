@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
+import Spinner from "../common/Spinner";
 import { contactForm } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 class Contact extends Component {
@@ -44,45 +44,53 @@ class Contact extends Component {
 
   render() {
     const { errors } = this.state;
+    const { loading } = this.props.auth;
+    let spinners;
+    if (loading) {
+      spinners = <Spinner />;
+    } else {
+      spinners = (
+        <form onSubmit={this.onSubmit}>
+          <TextFieldGroup
+            placeholder="Name"
+            name="name"
+            type="text"
+            value={this.state.name}
+            onChange={this.onChange}
+            error={errors.name}
+            icon="fas fa-address-card"
+          />
+          <TextFieldGroup
+            placeholder="email"
+            name="email"
+            type="text"
+            value={this.state.email}
+            onChange={this.onChange}
+            error={errors.email}
+            icon="fas fa-user"
+          />
 
+          <TextFieldGroup
+            placeholder="subject"
+            name="subject"
+            type="text"
+            value={this.state.subject}
+            onChange={this.onChange}
+            error={errors.subject}
+            icon="fas fa-key"
+          />
+
+          <input type="submit" className="btn btn-info btn-block mt-4" />
+        </form>
+      );
+    }
     return (
       <div className="Contact">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Contact Us</h1>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="Name"
-                  name="name"
-                  type="text"
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                  icon="fas fa-address-card"
-                />
-                <TextFieldGroup
-                  placeholder="email"
-                  name="email"
-                  type="text"
-                  value={this.state.email}
-                  onChange={this.onChange}
-                  error={errors.email}
-                  icon="fas fa-user"
-                />
-
-                <TextFieldGroup
-                  placeholder="subject"
-                  name="subject"
-                  type="text"
-                  value={this.state.subject}
-                  onChange={this.onChange}
-                  error={errors.subject}
-                  icon="fas fa-key"
-                />
-
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+              {spinners}
             </div>
           </div>
         </div>
