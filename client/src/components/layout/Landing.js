@@ -1,5 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 class Landing extends Component {
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
   render() {
     return (
       <div id="index-banner" className="parallax-container">
@@ -14,13 +22,13 @@ class Landing extends Component {
               </h2>
             </div>
             <div className="row center">
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 id="download-button"
                 className="btn-large waves-effect waves-light teal lighten-1"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -28,5 +36,12 @@ class Landing extends Component {
     );
   }
 }
+Landing.propTypes = {
+  auth: PropTypes.object.isRequired
+};
 
-export default Landing;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Landing);
