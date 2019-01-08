@@ -7,6 +7,7 @@ const bodyparser = require("body-parser");
 const uri = require("./config/keys").mongoUri;
 
 const users = require("./routes/api/users");
+const email = require("./routes/api/email");
 
 const app = express();
 // Include custom Router we created
@@ -54,6 +55,7 @@ require("./config/passport")(passport);
 // Use our router
 
 app.use("/api/user", users);
+app.use("/api/email", email);
 
 app.get("/", (req, res) => {
   res.status(200).send({ message: "success" });
