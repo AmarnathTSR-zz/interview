@@ -54,7 +54,7 @@ class Navbar extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo">
+          <Link to="/" className="brand-logo hide-on-med-and-down">
             Amarnath TSR
           </Link>
 
